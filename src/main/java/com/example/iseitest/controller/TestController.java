@@ -19,4 +19,10 @@ public class TestController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body("main page");
     }
+
+    @GetMapping("/ps")
+    public ResponseEntity<String> ps() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("ps page");
+    }
 }
