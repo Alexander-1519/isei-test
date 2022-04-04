@@ -13,9 +13,9 @@ public class ExceptionBuilder {
         this.code = code;
     }
 
-    public ExceptionBuilder build(Class<? extends ExceptionBuilder> clazz) {
+    public IseiException build(Class<? extends IseiException> clazz) {
         try {
-            Constructor<? extends ExceptionBuilder> c = clazz.getConstructor(String.class, Code.class, Throwable.class);
+            Constructor<? extends IseiException> c = clazz.getConstructor(String.class, Code.class, Throwable.class);
             return c.newInstance(message, code, cause);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new IllegalStateException("Failed to construct IseiException", e);

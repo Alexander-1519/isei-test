@@ -17,6 +17,9 @@ public class User {
     @ManyToOne
     private UserRole userRole;
 
+    @ManyToOne
+    private Company company;
+
     public Long getId() {
         return id;
     }
@@ -47,5 +50,13 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
