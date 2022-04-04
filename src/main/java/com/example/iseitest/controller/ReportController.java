@@ -1,5 +1,6 @@
 package com.example.iseitest.controller;
 
+import com.example.iseitest.dto.report.ReportSearchDto;
 import com.example.iseitest.entity.UserReport;
 import com.example.iseitest.service.UserReportService;
 import org.springframework.http.HttpStatus;
@@ -40,8 +41,11 @@ public class ReportController {
     }
 
     @GetMapping("/reports")
-    public ResponseEntity<List<UserReport>> getAllReport(Principal principal) {
-        List<UserReport> allReports = reportService.getAllReports();
+    public ResponseEntity<List<UserReport>> getAllReport(@RequestBody ReportSearchDto reportSearch,
+                                                         Principal principal) {
+        List<UserReport> allReports = reportService.getAllReports(reportSearch.getUserId(),
+                reportSearch.getCompanyName(),
+                reportSearch.getType());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(allReports);

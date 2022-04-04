@@ -1,5 +1,6 @@
 package com.example.iseitest.service;
 
+import com.example.iseitest.dto.report.ReportTypeDto;
 import com.example.iseitest.entity.User;
 import com.example.iseitest.entity.UserReport;
 import com.example.iseitest.exception.NoSuchUserException;
@@ -44,5 +45,18 @@ public class UserReportService {
 
     public List<UserReport> getAllReports() {
         return reportRepository.findAll();
+    }
+
+    public List<UserReport> getAllReports(Long userId, String companyName, ReportTypeDto reportType) {
+        switch (reportType) {
+            case USER:
+                return reportRepository.findByUserId(userId);
+            case COMPANY:
+                return reportRepository.findByCompanyName(companyName);
+            case CITY:
+                return reportRepository.findByBelongCompanyIsFalse();
+        }
+
+        return getAllReports();
     }
 }

@@ -1,8 +1,8 @@
 package com.example.iseitest.mapper;
 
-import com.example.iseitest.dto.UserOutputDto;
-import com.example.iseitest.dto.UserRegistrationDto;
-import com.example.iseitest.dto.UserSignInInputDto;
+import com.example.iseitest.dto.user.UserOutputDto;
+import com.example.iseitest.dto.user.UserRegistrationDto;
+import com.example.iseitest.dto.user.UserSignInInputDto;
 import com.example.iseitest.entity.User;
 import org.mapstruct.Mapper;
 

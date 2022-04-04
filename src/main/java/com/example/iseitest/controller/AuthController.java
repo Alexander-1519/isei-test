@@ -1,9 +1,9 @@
 package com.example.iseitest.controller;
 
-import com.example.iseitest.dto.UserOutputDto;
-import com.example.iseitest.dto.UserRegistrationDto;
-import com.example.iseitest.dto.UserSignInInputDto;
-import com.example.iseitest.dto.UserSignInOutputDto;
+import com.example.iseitest.dto.user.UserOutputDto;
+import com.example.iseitest.dto.user.UserRegistrationDto;
+import com.example.iseitest.dto.user.UserSignInInputDto;
+import com.example.iseitest.dto.user.UserSignInOutputDto;
 import com.example.iseitest.entity.User;
 import com.example.iseitest.mapper.UserMapper;
 import com.example.iseitest.service.UserService;

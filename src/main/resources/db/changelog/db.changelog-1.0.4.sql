@@ -1,0 +1,1 @@
+ALTER TABLE user_report ADD COLUMN belong_company BOOL NOT NULL DEFAULT FALSE;

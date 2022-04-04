@@ -1,4 +1,4 @@
-package com.example.iseitest.dto;
+package com.example.iseitest.dto.user;
 
 public class UserRegistrationDto {
 

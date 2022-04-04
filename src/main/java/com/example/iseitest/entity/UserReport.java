@@ -19,6 +19,8 @@ public class UserReport {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Boolean belongCompany;
+
     public Long getId() {
         return id;
     }
@@ -65,5 +67,13 @@ public class UserReport {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getBelongCompany() {
+        return belongCompany;
+    }
+
+    public void setBelongCompany(Boolean belongCompany) {
+        this.belongCompany = belongCompany;
     }
 }
