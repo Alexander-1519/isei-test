@@ -41,4 +41,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(updatedUser);
     }
+
+    @GetMapping("/users/myself")
+    public ResponseEntity<User> getAuthUser(Principal principal) {
+        User authUser = userService.getAuthUser(principal.getName());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(authUser);
+    }
 }
