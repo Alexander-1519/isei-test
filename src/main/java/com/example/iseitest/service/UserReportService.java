@@ -10,6 +10,7 @@ import com.example.iseitest.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,6 +53,9 @@ public class UserReportService {
             case USER:
                 return reportRepository.findByUserId(userId);
             case COMPANY:
+                if(companyName == null || companyName.equals("null")) {
+                    return new ArrayList<>();
+                }
                 return reportRepository.findByCompanyName(companyName);
             case CITY:
                 return reportRepository.findByBelongCompanyIsFalse();
