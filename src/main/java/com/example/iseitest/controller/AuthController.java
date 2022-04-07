@@ -36,12 +36,9 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<UserSignInOutputDto> sigIn(@RequestBody UserSignInInputDto inputDto) {
-        String jwt = userService.login(inputDto.getEmail(), inputDto.getPassword());
-
-        UserSignInOutputDto outputDto = new UserSignInOutputDto();
-        outputDto.setJwt(jwt);
+        UserSignInOutputDto userSignInOutputDto = userService.login(inputDto.getEmail(), inputDto.getPassword());
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(outputDto);
+                .body(userSignInOutputDto);
     }
 }

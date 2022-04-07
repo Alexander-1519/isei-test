@@ -1,5 +1,6 @@
 package com.example.iseitest.service;
 
+import com.example.iseitest.dto.user.UserSignInOutputDto;
 import com.example.iseitest.entity.Company;
 import com.example.iseitest.entity.User;
 import com.example.iseitest.entity.UserRole;
@@ -58,7 +59,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String login(String email, String password) {
+    public UserSignInOutputDto login(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchUserException(email));
 
@@ -66,7 +67,14 @@ public class UserService {
             throw new PasswordNotMatchException(password);
         }
 
-        return jwtProvider.generateToken(email);
+        UserSignInOutputDto userOutputDto = new UserSignInOutputDto();
+        userOutputDto.setUserId(user.getId());
+        userOutputDto.setJwt(jwtProvider.generateToken(email));
+        if(user.getCompany() != null) {
+            userOutputDto.setCompanyName(user.getCompany().getName());
+        }
+
+        return userOutputDto;
     }
 
     public User updateUser(User user, String email, Long userId) {
