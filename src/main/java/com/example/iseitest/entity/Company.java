@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table
@@ -15,6 +17,9 @@ public class Company {
     private Long id;
 
     private String name;
+
+    @ManyToMany
+    private Set<CompanyTag> tags;
 
     public Long getId() {
         return id;
@@ -30,5 +35,13 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<CompanyTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<CompanyTag> tags) {
+        this.tags = tags;
     }
 }
