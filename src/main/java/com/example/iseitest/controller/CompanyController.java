@@ -41,4 +41,12 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(companies);
     }
+
+    @PutMapping("/companies/{companyId}/tags/{tagId}")
+    public ResponseEntity<Company> addTagToCompany(@PathVariable Long companyId, @PathVariable Long tagId) {
+        Company company = companyService.addTagToCompany(tagId, companyId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(company);
+    }
 }

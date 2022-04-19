@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,8 +19,15 @@ public class Company {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "companies")
     private Set<CompanyTag> tags;
+
+    public void addTag(CompanyTag companyTag) {
+        if(tags == null) {
+            tags = new HashSet<>();
+        }
+        tags.add(companyTag);
+    }
 
     public Long getId() {
         return id;

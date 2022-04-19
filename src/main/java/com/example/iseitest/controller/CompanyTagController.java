@@ -11,7 +11,11 @@ import java.util.List;
 @RestController
 public class CompanyTagController {
 
-    private CompanyTagService tagService;
+    private final CompanyTagService tagService;
+
+    public CompanyTagController(CompanyTagService tagService) {
+        this.tagService = tagService;
+    }
 
     @PostMapping("/tags")
     public ResponseEntity<CompanyTag> createTag(@RequestBody CompanyTag companyTag) {

@@ -6,9 +6,11 @@ import com.example.iseitest.exception.NoSuchCompanyException;
 import com.example.iseitest.exception.NoSuchCompanyTagException;
 import com.example.iseitest.repository.CompanyRepository;
 import com.example.iseitest.repository.CompanyTagRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CompanyTagService {
 
     private final CompanyTagRepository companyTagRepository;
