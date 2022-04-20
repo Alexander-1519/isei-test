@@ -34,8 +34,8 @@ public class CompanyTagController {
     }
 
     @GetMapping("/tags")
-    public ResponseEntity<List<CompanyTag>> getAll() {
-        List<CompanyTag> tags = tagService.getAll();
+    public ResponseEntity<List<CompanyTag>> getAll(@RequestParam(required = false, defaultValue = "") String name) {
+        List<CompanyTag> tags = tagService.getAll(name);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(tags);

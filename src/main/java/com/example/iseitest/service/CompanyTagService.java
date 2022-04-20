@@ -9,6 +9,7 @@ import com.example.iseitest.repository.CompanyTagRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class CompanyTagService {
@@ -23,7 +24,7 @@ public class CompanyTagService {
 
     public CompanyTag createTag(String tagName) {
         CompanyTag companyTag = new CompanyTag();
-        companyTag.setName(tagName);
+        companyTag.setName(tagName.toUpperCase(Locale.ROOT));
 
         return companyTagRepository.save(companyTag);
     }
@@ -38,7 +39,7 @@ public class CompanyTagService {
         return companyTagRepository.findById(id).orElseThrow(() -> new NoSuchCompanyTagException(id));
     }
 
-    public List<CompanyTag> getAll() {
-        return companyTagRepository.findAll();
+    public List<CompanyTag> getAll(String name) {
+        return companyTagRepository.getAllWithFiltering(name);
     }
 }
