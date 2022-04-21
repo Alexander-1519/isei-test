@@ -7,7 +7,9 @@ import com.example.iseitest.repository.CompanyRepository;
 import com.example.iseitest.repository.CompanyTagRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CompanyService {
@@ -40,8 +42,13 @@ public class CompanyService {
         return companyRepository.findById(id).orElseThrow(() -> new NoSuchCompanyException(id));
     }
 
-    public List<Company> getAll() {
-        return companyRepository.findAll();
+    public List<Company> getAll(List<String> tagsName) {
+        Set<CompanyTag> tags = new HashSet<>();
+        for (String name : tagsName) {
+            List<CompanyTag> allWithFiltering = tagRepository.getAllWithFiltering(name);
+            tags.addAll(allWithFiltering);
+        }
+        return companyRepository.findByTagsIn(tags);
     }
 
     public Company addTagToCompany(Long tagId, Long companyId) {
@@ -49,8 +56,8 @@ public class CompanyService {
 
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new NoSuchCompanyException(companyId));
 
-        company.addTag(companyTag);
-
+        companyTag.getCompanies().add(company);
+        company.getTags().add(companyTag);
         return companyRepository.save(company);
     }
 }

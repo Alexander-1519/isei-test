@@ -1,11 +1,6 @@
 package com.example.iseitest.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +14,8 @@ public class Company {
 
     private String name;
 
-    @ManyToMany(mappedBy = "companies")
-    private Set<CompanyTag> tags;
+    @ManyToMany(mappedBy = "companies", cascade = CascadeType.ALL)
+    private Set<CompanyTag> tags = new HashSet<>();
 
     public void addTag(CompanyTag companyTag) {
         if(tags == null) {

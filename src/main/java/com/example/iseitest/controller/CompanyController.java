@@ -1,8 +1,9 @@
 package com.example.iseitest.controller;
 
+import com.example.iseitest.dto.company.CompanyOutputDto;
 import com.example.iseitest.entity.Company;
+import com.example.iseitest.mapper.CompanyMapper;
 import com.example.iseitest.service.CompanyService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,11 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final CompanyMapper companyMapper;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, CompanyMapper companyMapper) {
         this.companyService = companyService;
+        this.companyMapper = companyMapper;
     }
 
     @PostMapping("/companies")
@@ -35,11 +38,11 @@ public class CompanyController {
     }
 
     @GetMapping("/companies")
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.getAll();
+    public ResponseEntity<List<CompanyOutputDto>> getAllCompanies(@RequestParam(required = false) List<String> tags) {
+        List<Company> companies = companyService.getAll(tags);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(companies);
+                .body(companyMapper.toListOutputDto(companies));
     }
 
     @PutMapping("/companies/{companyId}/tags/{tagId}")
