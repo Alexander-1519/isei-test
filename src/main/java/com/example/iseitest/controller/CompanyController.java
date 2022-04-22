@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class CompanyController {
@@ -40,6 +41,15 @@ public class CompanyController {
     @GetMapping("/companies")
     public ResponseEntity<List<CompanyOutputDto>> getAllCompanies(@RequestParam(required = false) List<String> tags) {
         List<Company> companies = companyService.getAll(tags);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(companyMapper.toListOutputDto(companies));
+    }
+
+    @GetMapping("/companies/names")
+    public ResponseEntity<List<CompanyOutputDto>> getAllByName(
+            @RequestParam(required = false, defaultValue = "") String name) {
+        List<Company> companies = companyService.getAllByName(name);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(companyMapper.toListOutputDto(companies));

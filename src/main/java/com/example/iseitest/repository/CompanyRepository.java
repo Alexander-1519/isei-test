@@ -21,7 +21,10 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query("SELECT DISTINCT c FROM Company c JOIN c.tags t WHERE t IN :tags")
     List<Company> findByTagsIn(@Param("tags") Set<CompanyTag> tags);
 
-//    @Query("SELECT DISTINCT c FROM Company c JOIN c.tags t WHERE t.name LIKE :name")
+    @Query("SELECT DISTINCT c FROM Company c WHERE c.name LIKE concat('%', upper(:name), '%') ")
+    List<Company> findByNameLike(@Param("name") String name);
+
+//    @Query("SELECT DISTINCT c FROM Company c WHERE c.name LIKE :name")
 //    List<Company> findByTagsNameContaining(@Param("name") String name);
 
 //    @Query("SELECT c FROM Company c WHERE c.tags")

@@ -5,6 +5,7 @@ import com.example.iseitest.entity.Company;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(
         config = BaseMapperConfig.class
@@ -12,4 +13,6 @@ import java.util.List;
 public interface CompanyMapper {
 
     List<CompanyOutputDto> toListOutputDto(List<Company> companies);
+
+    Set<CompanyOutputDto> toSetOutputDto(Set<Company> companies);
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -30,6 +31,8 @@ public class CompanyService {
                     .withMessage("Company already exists with name = " + company.getName())
                     .build(IseiException.class);
         }
+
+        company.setName(company.getName().toUpperCase(Locale.ROOT));
 
         return companyRepository.save(company);
     }
@@ -59,5 +62,9 @@ public class CompanyService {
         companyTag.getCompanies().add(company);
         company.getTags().add(companyTag);
         return companyRepository.save(company);
+    }
+
+    public List<Company> getAllByName(String name) {
+        return companyRepository.findByNameLike(name);
     }
 }
