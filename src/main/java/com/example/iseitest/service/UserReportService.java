@@ -4,6 +4,7 @@ import com.example.iseitest.dto.report.ReportTypeDto;
 import com.example.iseitest.entity.Company;
 import com.example.iseitest.entity.User;
 import com.example.iseitest.entity.UserReport;
+import com.example.iseitest.entity.UserReportStatus;
 import com.example.iseitest.exception.*;
 import com.example.iseitest.repository.CompanyRepository;
 import com.example.iseitest.repository.UserReportRepository;
@@ -35,14 +36,8 @@ public class UserReportService {
     public UserReport createReport(UserReport userReport, Company company, MultipartFile file, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new NoSuchUserException(email));
 
-//        if(user.getCompany() == null && userReport.getBelongCompany()) {
-//            throw ExceptionBuilder.builder(Code.UNEXPECTED)
-//                    .withMessage("Can't save report to user with no company")
-//                    .build(IseiException.class);
-//        }
-
-         Company companyByName = companyRepository.findByName(company.getName())
-                 .orElseThrow(() -> new NoSuchCompanyException(company.getName()));
+        Company companyByName = companyRepository.findByName(company.getName())
+                .orElseThrow(() -> new NoSuchCompanyException(company.getName()));
 
         String fileName = fileService.save(file);
         String uri = fileService.findByName(fileName).getHttpRequest().getRequestLine().getUri();
@@ -50,6 +45,7 @@ public class UserReportService {
         userReport.setImageUrl(uri);
         userReport.setUser(user);
         userReport.setCompany(companyByName);
+        userReport.setStatus(UserReportStatus.NEW);
 
         return reportRepository.save(userReport);
     }
@@ -67,7 +63,7 @@ public class UserReportService {
             case USER:
                 return reportRepository.findByUserId(userId);
             case COMPANY:
-                if(companyName == null || companyName.equals("null")) {
+                if (companyName == null || companyName.equals("null")) {
                     return new ArrayList<>();
                 }
                 return reportRepository.findByCompanyName(companyName);
@@ -76,5 +72,13 @@ public class UserReportService {
         }
 
         return getAllReports();
+    }
+
+    public UserReport changeStatus(UserReportStatus status, Long reportId) {
+        UserReport report = reportRepository.findById(reportId).orElseThrow(() -> new NoSuchUserReportException(reportId));
+
+        report.setStatus(status);
+
+        return reportRepository.save(report);
     }
 }

@@ -4,6 +4,7 @@ import com.example.iseitest.dto.report.ReportOutputDto;
 import com.example.iseitest.dto.report.ReportTypeDto;
 import com.example.iseitest.entity.Company;
 import com.example.iseitest.entity.UserReport;
+import com.example.iseitest.entity.UserReportStatus;
 import com.example.iseitest.mapper.UserReportMapper;
 import com.example.iseitest.service.UserReportService;
 import org.springframework.http.HttpStatus;
@@ -55,5 +56,13 @@ public class ReportController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userReportMapper.toListOutput(allReports));
+    }
+
+    @PutMapping("/reports/{id}")
+    public ResponseEntity<UserReport> changeReportStatus(@PathVariable Long id, @RequestParam UserReportStatus status) {
+        UserReport userReport = reportService.changeStatus(status, id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userReport);
     }
 }

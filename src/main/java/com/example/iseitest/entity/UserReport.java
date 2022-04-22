@@ -22,6 +22,9 @@ public class UserReport {
     @ManyToOne
     private Company company;
 
+    @Enumerated(EnumType.STRING)
+    private UserReportStatus status;
+
     private Boolean belongCompany;
 
     public Long getId() {
@@ -86,5 +89,13 @@ public class UserReport {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public UserReportStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserReportStatus status) {
+        this.status = status;
     }
 }
