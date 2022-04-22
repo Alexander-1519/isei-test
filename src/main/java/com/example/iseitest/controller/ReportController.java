@@ -1,9 +1,10 @@
 package com.example.iseitest.controller;
 
-import com.example.iseitest.dto.report.ReportSearchDto;
+import com.example.iseitest.dto.report.ReportOutputDto;
 import com.example.iseitest.dto.report.ReportTypeDto;
 import com.example.iseitest.entity.Company;
 import com.example.iseitest.entity.UserReport;
+import com.example.iseitest.mapper.UserReportMapper;
 import com.example.iseitest.service.UserReportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,9 +20,11 @@ import java.util.List;
 public class ReportController {
 
     private final UserReportService reportService;
+    private final UserReportMapper userReportMapper;
 
-    public ReportController(UserReportService reportService) {
+    public ReportController(UserReportService reportService, UserReportMapper userReportMapper) {
         this.reportService = reportService;
+        this.userReportMapper = userReportMapper;
     }
 
     @PostMapping("/reports")
@@ -44,13 +47,13 @@ public class ReportController {
     }
 
     @GetMapping("/reports")
-    public ResponseEntity<List<UserReport>> getAllReport(@RequestParam(required = false) Long userId,
-                                                         @RequestParam(required = false) String companyName,
-                                                         @RequestParam ReportTypeDto type,
-                                                         Principal principal) {
+    public ResponseEntity<List<ReportOutputDto>> getAllReport(@RequestParam(required = false) Long userId,
+                                                              @RequestParam(required = false) String companyName,
+                                                              @RequestParam ReportTypeDto type,
+                                                              Principal principal) {
         List<UserReport> allReports = reportService.getAllReports(userId, companyName, type);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(allReports);
+                .body(userReportMapper.toListOutput(allReports));
     }
 }
