@@ -1,0 +1,1 @@
+ALTER TABLE user_report ADD COLUMN company_id BIGINT REFERENCES company(id);

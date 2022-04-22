@@ -2,6 +2,7 @@ package com.example.iseitest.controller;
 
 import com.example.iseitest.dto.report.ReportSearchDto;
 import com.example.iseitest.dto.report.ReportTypeDto;
+import com.example.iseitest.entity.Company;
 import com.example.iseitest.entity.UserReport;
 import com.example.iseitest.service.UserReportService;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,9 @@ public class ReportController {
     @PostMapping("/reports")
     public ResponseEntity<UserReport> saveReport(@RequestPart("file") MultipartFile file,
                                                  @RequestPart("report") UserReport report,
+                                                 @RequestPart("company") Company company,
                                                  Principal principal) {
-        UserReport userReport = reportService.createReport(report, file, principal.getName());
+        UserReport userReport = reportService.createReport(report, company, file, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userReport);

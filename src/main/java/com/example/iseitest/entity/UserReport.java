@@ -19,6 +19,9 @@ public class UserReport {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    private Company company;
+
     private Boolean belongCompany;
 
     public Long getId() {
@@ -75,5 +78,13 @@ public class UserReport {
 
     public void setBelongCompany(Boolean belongCompany) {
         this.belongCompany = belongCompany;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
