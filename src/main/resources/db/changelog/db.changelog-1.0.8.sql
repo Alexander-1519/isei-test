@@ -1,0 +1,3 @@
+ALTER TABLE user_report ADD COLUMN date DATE;
+
+ALTER TABLE company ADD COLUMN email VARCHAR(255);

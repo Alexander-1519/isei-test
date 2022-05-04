@@ -14,6 +14,8 @@ public class Company {
 
     private String name;
 
+    private String email;
+
     @ManyToMany(mappedBy = "companies", cascade = CascadeType.ALL)
     private Set<CompanyTag> tags = new HashSet<>();
 
@@ -46,5 +48,13 @@ public class Company {
 
     public void setTags(Set<CompanyTag> tags) {
         this.tags = tags;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

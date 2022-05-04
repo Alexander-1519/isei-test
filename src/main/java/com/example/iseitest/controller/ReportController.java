@@ -50,17 +50,19 @@ public class ReportController {
     @GetMapping("/reports")
     public ResponseEntity<List<ReportOutputDto>> getAllReport(@RequestParam(required = false) Long userId,
                                                               @RequestParam(required = false) String companyName,
-                                                              @RequestParam ReportTypeDto type,
+                                                              @RequestParam(required = false) ReportTypeDto type,
                                                               Principal principal) {
-        List<UserReport> allReports = reportService.getAllReports(userId, companyName, type);
+        List<UserReport> allReports = reportService.getAllReports();
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userReportMapper.toListOutput(allReports));
     }
 
     @PutMapping("/reports/{id}")
-    public ResponseEntity<UserReport> changeReportStatus(@PathVariable Long id, @RequestParam UserReportStatus status) {
-        UserReport userReport = reportService.changeStatus(status, id);
+    public ResponseEntity<UserReport> changeReportStatus(@PathVariable Long id,
+                                                         @RequestParam UserReportStatus status,
+                                                         Principal principal) {
+        UserReport userReport = reportService.changeStatus(status, id, principal.getName());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userReport);

@@ -70,6 +70,7 @@ public class UserService {
         UserSignInOutputDto userOutputDto = new UserSignInOutputDto();
         userOutputDto.setUserId(user.getId());
         userOutputDto.setJwt(jwtProvider.generateToken(email));
+        userOutputDto.setRole(user.getUserRole().getName().name());
         if(user.getCompany() != null) {
             userOutputDto.setCompanyName(user.getCompany().getName());
         }

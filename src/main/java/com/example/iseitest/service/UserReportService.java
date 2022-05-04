@@ -22,15 +22,18 @@ public class UserReportService {
     private final UserReportRepository reportRepository;
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
+    private final MailService mailService;
 
     public UserReportService(FileService fileService,
                              UserReportRepository reportRepository,
                              UserRepository userRepository,
-                             CompanyRepository companyRepository) {
+                             CompanyRepository companyRepository,
+                             MailService mailService) {
         this.fileService = fileService;
         this.reportRepository = reportRepository;
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
+        this.mailService = mailService;
     }
 
     public UserReport createReport(UserReport userReport, Company company, MultipartFile file, String email) {
@@ -45,7 +48,7 @@ public class UserReportService {
         userReport.setImageUrl(uri);
         userReport.setUser(user);
         userReport.setCompany(companyByName);
-        userReport.setStatus(UserReportStatus.NEW);
+        userReport.setStatus(UserReportStatus.PENDING_VERIFICATION);
 
         return reportRepository.save(userReport);
     }
@@ -74,8 +77,15 @@ public class UserReportService {
         return getAllReports();
     }
 
-    public UserReport changeStatus(UserReportStatus status, Long reportId) {
+    public UserReport changeStatus(UserReportStatus status, Long reportId, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NoSuchUserException(email));
+
         UserReport report = reportRepository.findById(reportId).orElseThrow(() -> new NoSuchUserReportException(reportId));
+
+        if(user.getUserRole().getName().name().equals("MODERATOR") && status.equals(UserReportStatus.APPROVED)) {
+            mailService.sendEmail(report.getCompany().getEmail(), "NEW REQUEST",
+                    "You have new request with id = " + report.getId());
+        }
 
         report.setStatus(status);
 

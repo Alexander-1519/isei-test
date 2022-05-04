@@ -1,5 +1,7 @@
 package com.example.iseitest.dto.report;
 
+import java.time.LocalDate;
+
 public class ReportOutputDto {
 
     private Long id;
@@ -7,6 +9,7 @@ public class ReportOutputDto {
     private Double latitude;
     private Double longitude;
     private String imageUrl;
+    private LocalDate date;
 
     public Long getId() {
         return id;
@@ -46,5 +49,13 @@ public class ReportOutputDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

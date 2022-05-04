@@ -5,6 +5,7 @@ public class UserSignInOutputDto {
     private String jwt;
     private Long userId;
     private String companyName;
+    private String role;
 
     public String getJwt() {
         return jwt;
@@ -28,5 +29,13 @@ public class UserSignInOutputDto {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

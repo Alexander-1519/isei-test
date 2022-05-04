@@ -1,6 +1,7 @@
 package com.example.iseitest.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "user_report")
@@ -14,6 +15,7 @@ public class UserReport {
     private Double latitude;
     private Double longitude;
     private String imageUrl;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -97,5 +99,13 @@ public class UserReport {
 
     public void setStatus(UserReportStatus status) {
         this.status = status;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

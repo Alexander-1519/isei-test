@@ -2,5 +2,5 @@ package com.example.iseitest.entity;
 
 public enum UserReportStatus {
 
-    NEW, IN_PROCESS, FINISHED
+    NEW, PENDING_VERIFICATION, CANCELED, APPROVED, FINISHED, NOT_FINISHED
 }
