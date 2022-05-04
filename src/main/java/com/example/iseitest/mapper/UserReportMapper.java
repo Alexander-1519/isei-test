@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserReportMapper {
 
     List<ReportOutputDto> toListOutput(List<UserReport> userReports);
+
+    ReportOutputDto toOutputDto(UserReport userReport);
 }

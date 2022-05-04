@@ -29,14 +29,14 @@ public class ReportController {
     }
 
     @PostMapping("/reports")
-    public ResponseEntity<UserReport> saveReport(@RequestPart("file") MultipartFile file,
+    public ResponseEntity<ReportOutputDto> saveReport(@RequestPart("file") MultipartFile file,
                                                  @RequestPart("report") UserReport report,
                                                  @RequestPart("company") Company company,
                                                  Principal principal) {
         UserReport userReport = reportService.createReport(report, company, file, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userReport);
+                .body(userReportMapper.toOutputDto(userReport));
     }
 
     @GetMapping("/reports/{id}")
