@@ -1,5 +1,7 @@
 package com.example.iseitest.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -15,6 +17,7 @@ public class UserReport {
     private Double latitude;
     private Double longitude;
     private String imageUrl;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @ManyToOne
@@ -107,5 +110,21 @@ public class UserReport {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "UserReport{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", company=" + company +
+                ", status=" + status +
+                ", belongCompany=" + belongCompany +
+                '}';
     }
 }
