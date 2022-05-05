@@ -10,6 +10,7 @@ public class ReportOutputDto {
     private Double longitude;
     private String imageUrl;
     private LocalDate date;
+    private String status;
 
     public Long getId() {
         return id;
@@ -57,5 +58,13 @@ public class ReportOutputDto {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
