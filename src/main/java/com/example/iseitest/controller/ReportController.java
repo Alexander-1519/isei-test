@@ -40,11 +40,11 @@ public class ReportController {
     }
 
     @GetMapping("/reports/{id}")
-    public ResponseEntity<UserReport> getReport(@PathVariable Long id, Principal principal) {
+    public ResponseEntity<ReportOutputDto> getReport(@PathVariable Long id, Principal principal) {
         UserReport report = reportService.getReport(id);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(report);
+                .body(userReportMapper.toOutputDto(report));
     }
 
     @GetMapping("/reports")
