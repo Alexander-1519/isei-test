@@ -59,12 +59,12 @@ public class ReportController {
     }
 
     @PutMapping("/reports/{id}")
-    public ResponseEntity<UserReport> changeReportStatus(@PathVariable Long id,
+    public ResponseEntity<ReportOutputDto> changeReportStatus(@PathVariable Long id,
                                                          @RequestParam UserReportStatus status,
                                                          Principal principal) {
         UserReport userReport = reportService.changeStatus(status, id, principal.getName());
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(userReport);
+                .body(userReportMapper.toOutputDto(userReport));
     }
 }
